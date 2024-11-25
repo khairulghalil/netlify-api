@@ -25,5 +25,9 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get("/.netlify/functions/api", (req, res) => {
+  res.send("App is running ...");
+});
+
 app.use("/.netlify/functions/api", router);
 module.exports.handler = serverless(app);
