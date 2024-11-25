@@ -45,7 +45,6 @@ module.exports = {
         const users = await db.collection("users").doc(userId).get();
 
         if (users.exists) {
-          console.log("kdkdkdk");
           res.push({
             id: users.id,
             ...users.data(),

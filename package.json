@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "unset LANG && netlify dev",
+    "dev": "nodemon --exec 'unset LANG && netlify dev'",
     "build": "netlify deploy --prod"
   },
   "author": "",
@@ -16,6 +16,7 @@
     "nanoid": "^3.3.7",
     "netlify-cli": "^12.7.2",
     "netlify-lambda": "^2.0.15",
+    "nodemon": "^3.1.7",
     "serverless-http": "^2.7.0"
   }
 }
