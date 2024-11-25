@@ -2,15 +2,27 @@ const express = require("express");
 const serverless = require("serverless-http");
 const app = express();
 const router = express.Router();
-const { db } = require("../config/firebase-admin");
+const templateRouter = require("./template/template.router");
 
 app.use(express.json());
 
-router.post("/add", async (req, res) => {
-  const data = req.body;
-  const users = db.collection("users").doc();
-  await users.set({ data });
-  res.status(200).send({ id: users.id });
+const apiRoutes = [
+  {
+    path: "/template",
+    route: templateRouter,
+  },
+];
+
+apiRoutes.forEach((route) => {
+  router.use(route.path, route.route);
+});
+
+app.use((req, res, next) => {
+  const originalJson = res.json;
+  res.json = (body) => {
+    return originalJson.call(res, { data: body });
+  };
+  next();
 });
 
 app.use("/.netlify/functions/api", router);
